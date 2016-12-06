@@ -54,36 +54,36 @@
 
 				var $dotsSvg                = $('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 12a2 2 0 1 1 4.001.001A2 2 0 0 1 16 12m-6 0a2 2 0 1 1 4.001.001A2 2 0 0 1 10 12m-6 0a2 2 0 1 1 4.001.001A2 2 0 0 1 4 12z" fill="#000"></path></svg>');
 				var $menuSvg                = $('<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg width="42px" height="24px" viewBox="0 0 42 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="lines" stroke="none" stroke-width="1" fill="#000" fill-rule="evenodd"><rect id="line-1" x="0" y="0" width="42" height="4"></rect><rect id="line-2" x="0" y="10" width="42" height="4"></rect><rect id="line-3" x="0" y="10" width="42" height="4"></rect><rect id="line-4" x="0" y="20" width="42" height="4"></rect></g></svg>');
-				var $closeSvg				= $('<?xml version="1.0" encoding="UTF-8"?><svg width="26px" height="25px" viewBox="0 0 26 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs></defs><g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="MobileNav" transform="translate(-262.000000, -31.000000)" fill="#FFFFFF"><g id="Group" transform="translate(262.000000, 31.000000)"><rect id="Rectangle" transform="translate(13.000000, 12.500000) rotate(-45.000000) translate(-13.000000, -12.500000) " x="-3" y="11" width="32" height="3"></rect><rect id="Rectangle" transform="translate(13.000000, 12.500000) scale(-1, 1) rotate(-45.000000) translate(-13.000000, -12.500000) " x="-3" y="11" width="32" height="3"></rect></g></g></g></svg>');
+				var $closeSvg               = $('<?xml version="1.0" encoding="UTF-8"?><svg width="26px" height="25px" viewBox="0 0 26 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs></defs><g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="MobileNav" transform="translate(-262.000000, -31.000000)" fill="#FFFFFF"><g id="Group" transform="translate(262.000000, 31.000000)"><rect id="Rectangle" transform="translate(13.000000, 12.500000) rotate(-45.000000) translate(-13.000000, -12.500000) " x="-3" y="11" width="32" height="3"></rect><rect id="Rectangle" transform="translate(13.000000, 12.500000) scale(-1, 1) rotate(-45.000000) translate(-13.000000, -12.500000) " x="-3" y="11" width="32" height="3"></rect></g></g></g></svg>');
 
 				var navState                = 'desktop';
-				var isMobileNavOpen			= false;
-				var navItems				= [];
-				var fixedNavItems			= [];
-				var unfixedNavItems			= [];
+				var isMobileNavOpen         = false;
+				var navItems                = [];
+				var fixedNavItems           = [];
+				var unfixedNavItems         = [];
 
-				var $pacNav					= $(this);
-				var $window					= $(window);
-				var $navContents			= $pacNav.children();
-				var $navItems        		= $(options.childSelector, $pacNav);
-				var $fixedNavItems       	= $(options.childSelector + '.PacNav-fixed', $pacNav);
-				var $navToggle				= $('<div>').addClass('PacNav-toggle');
-				var $desktopNav				= $('<div>').addClass('PacNav--desktop');
-				var $mobileNav				= $('<div>').addClass('PacNav--mobile').addClass('PacNav--hidden');
+				var $pacNav                 = $(this);
+				var $window                 = $(window);
+				var $navContents            = $pacNav.children();
+				var $navItems               = $(options.childSelector, $pacNav);
+				var $fixedNavItems          = $(options.childSelector + '.PacNav-fixed', $pacNav);
+				var $navToggle              = $('<div>').addClass('PacNav-toggle');
+				var $desktopNav             = $('<div>').addClass('PacNav--desktop');
+				var $mobileNav              = $('<div>').addClass('PacNav--mobile').addClass('PacNav--hidden');
 
 				var fixedItemsWidth         = 0;
 
-				var $desktopNavItems		= null;
+				var $desktopNavItems        = null;
 				var $fixedDesktopNavItems   = null;
 				var $unfixedDesktopNavItems = null;
 
-				var $mobileNavItems			= null;
-				var $fixedMobileNavItems	= null;
-				var $unfixedMobileNavItems	= null;
+				var $mobileNavItems         = null;
+				var $fixedMobileNavItems    = null;
+				var $unfixedMobileNavItems  = null;
 
 				var resizeTime;
-				var inTimeout 				= false;
-				var resizeDelay 			= 100;
+				var inTimeout               = false;
+				var resizeDelay             = 100;
 
 				/**
 				 * closeMobileNav()
