@@ -19,11 +19,13 @@ Selector | Description
 .PacNav-toggle | element to open/close the menu in mobile state
 .PacNav--loaded | body class to confirm PacNav initialization is complete
 
+**NOTE** If you experience unexpected behavior with PacNav at intermediate breakpoints the cause is usually CSS changes to the dom elements. For example, hiding elements (CTA, etc.) within the nav can cause calculations to change making PacNav "jump" between intermediary and mobile as the element is hidden/shown.
+
+To debug PacNav start with your CSS!
+
 ### UI
 PacNav generates default SVG icons to indicate menu compression (hidden items), a hamburger icon, and a close icon.
 
-**NOTE** If you experience unexpected behavior with PacNav at intermediate breakpoints the cause is usually CSS changes to the dom elements. For example, hiding elements (CTA, etc.) within the nav can cause calculations to change making PacNav "jump" between intermediary and mobile as the element is hidden/shown.
-To debug PacNav start with your CSS!
 
 ## Settings
 Default options can be overridden by passing options object when instantiating pacNav.
