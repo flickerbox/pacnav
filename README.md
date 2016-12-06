@@ -17,6 +17,7 @@ Selector | Description
 -------- | -----------
 .PacNav-fixed | items in the desktop nav that should always show (in intermediate and mobile states) these are very useful for CTAs that should always be available.
 .PacNav-toggle | element to open/close the menu in mobile state
+.PacNav--loaded | body class to confirm PacNav initialization is complete
 
 ### UI
 PacNav generates default SVG icons to indicate menu compression (hidden items), a hamburger icon, and a close icon.
