@@ -61,3 +61,12 @@
 		transform: translate(0, -5px);
 	}
 }
+
+.is-mobile.is-active .PacnavToggle {
+	$_pacnav-toggle-size: unquote(inspect($pacnav-toggle-size));
+	height: $_pacnav-toggle-size;
+	position: fixed;
+	right: $pacnav-mobile-padding;
+	top: $pacnav-mobile-padding;
+	z-index: 1001;
+}

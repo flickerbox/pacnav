@@ -4,15 +4,17 @@
 //
 //----------------------------------------------------------------------
 
-$pacnav-dropdown-color: #000                                   !default;
+$pacnav-desktop-color: #000                                    !default;
 $pacnav-desktop-font-size: 16px                                !default;
 $pacnav-desktop-item-height: 40px                              !default;
+$pacnav-desktop-item-margin: 40px                              !default;
 $pacnav-desktop-line-height: 40px                              !default;
 
 $pacnav-dropdown-background-color: #fff                        !default;
-$pacnav-dropdown-color: #fff                                   !default;
+$pacnav-dropdown-color: #000                                   !default;
 $pacnav-dropdown-font-size: 16px                               !default;
 $pacnav-dropdown-item-height: 24px                             !default;
+$pacnav-dropdown-item-margin: 8px                              !default;
 $pacnav-dropdown-line-height: 20px                             !default;
 $pacnav-dropdown-padding: 20px                                 !default;
 $pacnav-dropdown-max-width: none                               !default;
@@ -20,9 +22,11 @@ $pacnav-dropdown-min-width: none                               !default;
 $pacnav-dropdown-width: 160px                                  !default;
 
 $pacnav-mobile-background-color: #fff                          !default;
-$pacnav-mobile-color: #fff                                     !default;
+$pacnav-mobile-color: #000                                     !default;
 $pacnav-mobile-font-size: 16px                                 !default;
 $pacnav-mobile-item-height: 24px                               !default;
+$pacnav-mobile-item-indent: 16px                               !default;
+$pacnav-mobile-item-margin: 8px                                !default;
 $pacnav-mobile-line-height: 20px                               !default;
 $pacnav-mobile-padding: 20px                                   !default;
 

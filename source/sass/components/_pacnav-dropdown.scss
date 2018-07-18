@@ -1,10 +1,47 @@
 .PacnavDropdown {
+	$_pacnav-dropdown-max-width: unquote(inspect($pacnav-dropdown-max-width));
+	$_pacnav-dropdown-min-width: unquote(inspect($pacnav-dropdown-min-width));
+	$_pacnav-dropdown-width: unquote(inspect($pacnav-dropdown-width));
+
+	background-color: $pacnav-dropdown-background-color;
 	display: none;
 	left: 50%;
 	min-width: 160px;
+	padding: $pacnav-dropdown-padding;
 	position: absolute;
 	top: 100%;
 	transform: translate3d(-50%, 0, 0);
+
+	@if $_pacnav-dropdown-width != auto {
+		width: $_pacnav-dropdown-width;
+	} @else {
+		max-width: $_pacnav-dropdown-max-width;
+		min-width: $_pacnav-dropdown-min-width;
+	}
+
+	li {
+		color: $pacnav-dropdown-color;
+		margin-bottom: $pacnav-dropdown-item-margin;
+		position: relative;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	li > a {
+		display: block;
+		font-size: $pacnav-dropdown-font-size;
+		line-height: $pacnav-dropdown-line-height;
+		height: $pacnav-dropdown-item-height;
+
+		&,
+		&:active,
+		&:focus,
+		&:hover {
+			color: $pacnav-dropdown-color;
+		}
+	}
 }
 
 :hover > .PacnavDropdown {
