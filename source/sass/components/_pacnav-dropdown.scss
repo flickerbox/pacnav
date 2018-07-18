@@ -1,0 +1,22 @@
+.PacnavDropdown {
+	display: none;
+	left: 50%;
+	min-width: 160px;
+	position: absolute;
+	top: 100%;
+	transform: translate3d(-50%, 0, 0);
+}
+
+:hover > .PacnavDropdown {
+	display: block;
+}
+
+.PacnavDropdown > ul {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.PacnavDropdown > ul > li {
+	display: block;
+}
