@@ -3,12 +3,28 @@
 	<li v-bind="attributes" :class="{ 'has-hover': this.hover }" @mouseover="mouseOver" @mouseleave="mouseOut">
 
 		<a v-bind="linkAttributes" v-if="link" :href="link" :rel="rel">
-			<span v-html="linkTitle"/>
-			<p v-if="description">{{ description }}</p>
+
+			<div v-if="icon" class="PacnavDropdown-icon">
+				<img :src="icon"/>
+			</div>
+
+			<div>
+				<span v-html="linkTitle"/>
+				<p v-if="description">{{ description }}</p>
+			</div>
+
 		</a>
 		<div v-else>
-			<span v-html="linkTitle"/>
-			<p v-if="description">{{ description }}</p>
+
+			<div v-if="icon" class="PacnavDropdown-icon">
+				<img :src="icon"/>
+			</div>
+
+			<div>
+				<span v-html="linkTitle"/>
+				<p v-if="description">{{ description }}</p>
+			</div>
+
 		</div>
 
 		<ul v-if="children && children.length">
@@ -32,31 +48,35 @@ export default {
 
 		includeMargin: {
 			default: true,
-			type: Boolean
+			type: Boolean,
 		},
 		children: {
 			default: () => [],
-			type: Array
+			type: Array,
 		},
 		attributes: {
 			default: () => {},
-			type: Object
+			type: Object,
 		},
 		linkAttributes: {
 			default: () => {},
-			type: Object
+			type: Object,
 		},
 		linkTitle: {
 			default: '',
-			type: String
+			type: String,
 		},
 		link: {
 			default: '/',
-			type: String
+			type: String,
 		},
 		description: {
 			default: '',
-			type: String
+			type: String,
+		},
+		icon: {
+			default: null,
+			type: String,
 		},
 
 	},
@@ -98,7 +118,7 @@ export default {
 			let rect = this.$el.getBoundingClientRect()
 			return this.margin + (rect.width || rect.right - rect.left)
 
-		}
+		},
 
 	},
 
@@ -110,14 +130,16 @@ export default {
 
 		mouseOver() {
 			this.hover = true
-		}
+		},
 
 	},
 
 	data() {
+
 		return {
 			hover: false
 		}
+
 	},
 
 }
