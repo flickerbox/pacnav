@@ -1,6 +1,6 @@
 {
   "name": "@flickerbox/pacnav",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "source/js/master.js",
   "scripts": {},
@@ -16,5 +16,8 @@
   },
   "devDependencies": {
     "@flickerbox/build": "https://github.com/flickerbox/build/tarball/v1.0.0"
+  },
+  "dependencies": {
+    "url-parse": "^1.4.1"
   }
 }
