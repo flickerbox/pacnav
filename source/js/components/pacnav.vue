@@ -272,7 +272,7 @@
 
 				if(this.state == 'mobile' && this.isActive && !document.body.classList.contains('Pacnav--is-active')) {
 					document.body.classList.add('Pacnav--is-active')
-				} else if(document.body.classList.contains('Pacnav--is-active')) {
+				} else if((this.state != 'mobile' || !this.isActive) && document.body.classList.contains('Pacnav--is-active')) {
 					document.body.classList.remove('Pacnav--is-active')
 				}
 
