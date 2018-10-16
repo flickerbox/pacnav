@@ -1,5 +1,10 @@
 <template>
-	<li :class="classList()" @click="onToggle">
+	<li
+		:class="classList()"
+		@click="onToggle"
+		@mouseover="mouseOver"
+		@mouseleave="mouseOut"
+	>
 
 		<svg width="20px" height="20px" viewBox="0 0 20 20">
 			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -37,15 +42,15 @@
 
 <script>
 export default {
-  
+
   name: 'pacnav-toggle',
 
 	props: {
 
-    includeMargin: {
-      default: true,
-      type: Boolean
-    },
+		includeMargin: {
+			default: true,
+			type: Boolean
+		},
 		active: {
 			default: false,
 			type: Boolean
@@ -55,9 +60,9 @@ export default {
 			type: Boolean
 		},
 		state: {
-  		default: 'desktop',
-  		type: String
-		}
+  			default: 'desktop',
+  			type: String
+		},
 
 	},
 
@@ -92,38 +97,48 @@ export default {
 
 	methods: {
 
-  	classList() {
+	  	classList() {
 
-    	let classes = [
-    		'PacnavToggle',
-        `is-${this.state}`
-  		]
+	    	let classes = [
+	    		'PacnavToggle',
+	        `is-${this.state}`
+	  		]
 
-  		if(this.isActive) {
-    		classes.push('is-active')
-  		}
+	  		if(this.isActive) {
+	    		classes.push('is-active')
+	  		}
 
-  		if(this.mounted) {
-    		classes.push('is-mounted')
-  		}
+	  		if(this.mounted) {
+	    		classes.push('is-mounted')
+	  		}
 
-  		return classes
+			if(this.hover) {
+				classes.push('has-hover')
+			}
 
-  	},
+	  		return classes
 
+	  	},
 		onToggle() {
 
 			this.isActive = !(this.active || this.isActive)
 			this.$emit('toggle', this.isActive)
 
-		}
+		},
+		mouseOut() {
+			this.hover = false
+		},
+		mouseOver() {
+			this.hover = true
+		},
 
 	},
 
 	data() {
 
 		return {
-			isActive: false
+			isActive: false,
+			hover: false,
 		}
 
 	}
