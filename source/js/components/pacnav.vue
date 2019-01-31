@@ -16,7 +16,18 @@
 				:attributes="item.attributes"
 				:include-margin="item.includeMargin">
 
-				<pacnav-dropdown v-if="item.children && item.children.length" :items="item.children"/>
+				<pacnav-dropdown v-if="item.children && item.children.length" :items="item.children">
+
+					<div slot="featured">
+
+						<slot
+							v-if="item.featured_post"
+							:name="getSlot(item.item_id)"/>
+
+					</div>
+
+				</pacnav-dropdown>
+
 
 			</pacnav-item>
 
@@ -83,6 +94,10 @@
 		},
 
 		methods: {
+
+			getSlot( item_id ) {
+				return `item-${ item_id }`
+			},
 
 			itemClassList( item ) {
 
@@ -272,7 +287,7 @@
 
 				if(this.state == 'mobile' && this.isActive && !document.body.classList.contains('Pacnav--is-active')) {
 					document.body.classList.add('Pacnav--is-active')
-				} else if((this.state != 'mobile' || !this.isActive) && document.body.classList.contains('Pacnav--is-active')) {
+				} else if(document.body.classList.contains('Pacnav--is-active')) {
 					document.body.classList.remove('Pacnav--is-active')
 				}
 

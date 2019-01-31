@@ -1,58 +1,60 @@
 <template>
 
 	<div :class="classList()">
-		
+
 		<ul v-if="items.length">
 
-			<pacnav-item 
+			<pacnav-item
 				v-for="(item, index) of items"
 				v-bind="item" :key="index"
 				:class="itemClassList(item)"/>
 
 		</ul>
-		
+
+		<slot name="featured"/>
+
 	</div>
 
 </template>
 
 <script>
-export default {
-	
-	name: 'pacnav-dropdown',
-	
-	props: {
+	export default {
 
-		items: {
-			default: () => [],
-			type: Array
-		}
+		name: 'pacnav-dropdown',
 
-	},
+		props: {
 
-	methods: {
-
-		itemClassList( item ) {
-
-			let preservedClasses = ''
-
-			if (typeof item.attributes == 'object') {
-				preservedClasses = item.attributes.class;
+			items: {
+				default: () => [],
+				type: Array
 			}
 
-			return {'has-children': item.children && item.children.length, [preservedClasses]: true}
 		},
 
-		classList() {
+		methods: {
 
-			let classes = [
-				'PacnavDropdown'
-			]
+			itemClassList( item ) {
 
-			return classes
+				let preservedClasses = ''
+
+				if (typeof item.attributes == 'object') {
+					preservedClasses = item.attributes.class;
+				}
+
+				return {'has-children': item.children && item.children.length, [preservedClasses]: true}
+			},
+
+			classList() {
+
+				let classes = [
+					'PacnavDropdown'
+				]
+
+				return classes
+
+			}
 
 		}
 
 	}
-
-}
 </script>
