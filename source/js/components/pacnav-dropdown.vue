@@ -11,7 +11,7 @@
 
 		</ul>
 
-		<slot name="featured"/>
+		<slot name="content"/>
 
 	</div>
 

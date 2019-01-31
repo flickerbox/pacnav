@@ -18,12 +18,8 @@
 
 				<pacnav-dropdown v-if="item.children && item.children.length" :items="item.children">
 
-					<div slot="featured">
-
-						<slot
-							v-if="item.featured_post"
-							:name="getSlot(item.item_id)"/>
-
+					<div slot="content">
+						<slot :name="getSlot(index)"/>
 					</div>
 
 				</pacnav-dropdown>
@@ -95,8 +91,8 @@
 
 		methods: {
 
-			getSlot( item_id ) {
-				return `item-${ item_id }`
+			getSlot( index ) {
+				return `item-${ index }`
 			},
 
 			itemClassList( item ) {
