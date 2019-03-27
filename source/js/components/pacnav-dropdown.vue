@@ -18,43 +18,76 @@
 </template>
 
 <script>
-	export default {
+import _ from 'lodash'
 
-		name: 'pacnav-dropdown',
+export default {
 
-		props: {
+	name: 'pacnav-dropdown',
 
-			items: {
-				default: () => [],
-				type: Array
-			}
+	props: {
+
+		items: {
+			default: () => [],
+			type: Array
+		},
+
+	},
+
+	computed: {
+
+		depth() {
+
+			return this.countDepth(this.items, 1)
 
 		},
 
-		methods: {
+	},
 
-			itemClassList( item ) {
+	methods: {
 
-				let preservedClasses = ''
+		countDepth( items, depth = 0 ) {
 
-				if (typeof item.attributes == 'object') {
-					preservedClasses = item.attributes.class;
+			let childDepth = depth
+
+			_.each(items, ( { children = [] } ) => {
+
+				if( children.length > 0 ) {
+					const itemDepth = this.countDepth(children, depth + 1)
+
+					if( itemDepth > childDepth ) {
+						childDepth = itemDepth
+					}
 				}
 
-				return {'has-children': item.children && item.children.length, [preservedClasses]: true}
-			},
+			})
 
-			classList() {
+			return childDepth
 
-				let classes = [
-					'PacnavDropdown'
-				]
+		},
 
-				return classes
+		itemClassList( item ) {
 
+			let preservedClasses = ''
+
+			if (typeof item.attributes == 'object') {
+				preservedClasses = item.attributes.class;
 			}
+
+			return {'has-children': item.children && item.children.length, [preservedClasses]: true}
+		},
+
+		classList() {
+
+			let classes = [
+				'PacnavDropdown',
+				`is-${ this.depth }-deep`,
+			]
+
+			return classes
 
 		}
 
 	}
+
+}
 </script>
