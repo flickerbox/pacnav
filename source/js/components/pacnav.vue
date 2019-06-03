@@ -258,11 +258,13 @@
 
 			handleResize() {
 
-				this.windowWidth = window.innerWidth
-				this.width = this.$el.clientWidth
+				if (this.windowWidth != window.innerWidth) {
+					this.windowWidth = window.innerWidth
+					this.width = this.$el.clientWidth
 
-				this.computeVisible()
-				this.setBodyClass()
+					this.computeVisible()
+					this.setBodyClass()
+				}
 
 			},
 
