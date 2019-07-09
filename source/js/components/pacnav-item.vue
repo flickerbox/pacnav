@@ -9,6 +9,7 @@
 			</div>
 
 			<div>
+				<div v-if="label" class="PacnavDropdown-label" v-html="label"/>
 				<span v-html="linkTitle"/>
 				<p v-if="description">{{ description }}</p>
 			</div>
@@ -75,6 +76,10 @@ export default {
 			type: String,
 		},
 		icon: {
+			default: null,
+			type: String,
+		},
+		label: {
 			default: null,
 			type: String,
 		},

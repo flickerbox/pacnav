@@ -14,7 +14,10 @@
 				:link-title="item.linkTitle"
 				:link-attributes="item.linkAttributes"
 				:attributes="item.attributes"
-				:include-margin="item.includeMargin">
+				:include-margin="item.includeMargin"
+				:icon="item.icon"
+				:label="item.label"
+				:description="item.description">
 
 				<pacnav-dropdown v-if="item.children && item.children.length" :items="item.children">
 
