@@ -17,7 +17,8 @@
 				:include-margin="item.includeMargin"
 				:icon="item.icon"
 				:label="item.label"
-				:description="item.description">
+				:description="item.description"
+				:item-classes="item.itemClasses">
 
 				<pacnav-dropdown v-if="item.children && item.children.length" :items="item.children">
 
