@@ -1,6 +1,6 @@
 {
   "name": "@flickerbox/pacnav",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "",
   "main": "source/js/master.js",
   "module": "source/js/master.js",
@@ -19,7 +19,7 @@
     "@flickerbox/build": "https://github.com/flickerbox/build/tarball/v1.0.0"
   },
   "dependencies": {
-    "lodash": "^4.17.11",
-    "url-parse": "^1.4.1"
+    "lodash": "^4.17.14",
+    "url-parse": "^1.4.7"
   }
 }

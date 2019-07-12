@@ -146,10 +146,12 @@
 
 			mouseOut() {
 				this.hover = false
+				document.body.classList.remove('Pacnav--has-hover')
 			},
 
 			mouseOver() {
 				this.hover = true
+				document.body.classList.add('Pacnav--has-hover')
 			},
 
 		},

@@ -41,7 +41,7 @@
 
 			<ul>
 				<pacnav-item
-					v-for="(item, index) of mobileItems()"
+					v-for="(item, index) of mobileItems"
 					v-bind="item"
 					:class="itemClassList(item)"
 					:key="index"/>
@@ -72,6 +72,10 @@
 
 		props: {
 			items: {
+				default: () => [],
+				type: Array
+			},
+			itemsMobile: {
 				default: () => [],
 				type: Array
 			},
@@ -244,6 +248,7 @@
 			computeWidths() {
 
 				this.allItems = this.getAllItems()
+				this.mobileItems = this.getMobileItems()
 				this.fixedItems = this.getFixedItems()
 				this.unfixedItems = this.getUnfixedItems()
 				this.allItemsWidth = this.getAllItemsWidth()
@@ -324,11 +329,19 @@
 
 			},
 
-			mobileItems() {
+			getMobileItems() {
 
-				return this.items.filter((item, index) => {
+				let combinedItems = this.items.filter((item, index) => {
 					return (!this.hasFixedClass(item) || !this.showFixedOnMobile)
 				})
+
+				if (this.itemsMobile) {
+
+					combinedItems = [...combinedItems, ...this.itemsMobile]
+
+				}
+
+				return combinedItems
 
 			},
 

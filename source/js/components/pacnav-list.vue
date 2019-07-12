@@ -1,44 +1,44 @@
 <template>
 
 	<ul>
-		
-		<pacnav-item 
+
+		<pacnav-item
 			v-for="(item, index) of items" v-bind="item"
 			:class="itemClassList(item)"
 			:key="index"/>
-		
+
 	</ul>
 
 </template>
 
 <script>
-export default {
-	
-	name: 'pacnav-list',
-	
-	props: {
+	export default {
 
-		items: {
-			default: () => [],
-			type: Array
-		}
+		name: 'pacnav-list',
 
-	},
+		props: {
 
-	methods: {
-
-		itemClassList( item ) {
-
-			let preservedClasses = ''
-
-			if (typeof item.attributes == 'object') {
-				preservedClasses = item.attributes.class;
+			items: {
+				default: () => [],
+				type: Array
 			}
 
-			return {'has-children': item.children && item.children.length, [preservedClasses]: true}
 		},
 
-	}
+		methods: {
 
-}
+			itemClassList( item ) {
+
+				let preservedClasses = ''
+
+				if (typeof item.attributes == 'object') {
+					preservedClasses = item.attributes.class;
+				}
+
+				return {'has-children': item.children && item.children.length, [preservedClasses]: true}
+			},
+
+		}
+
+	}
 </script>
