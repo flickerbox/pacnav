@@ -144,14 +144,22 @@
 
 		methods: {
 
-			mouseOut() {
+			mouseOut(event) {
 				this.hover = false
-				document.body.classList.remove('Pacnav--has-hover')
+
+				if (event.currentTarget.classList.contains('has-children')) {
+					document.body.classList.remove('Pacnav--sub-is-active')
+				}
+
 			},
 
-			mouseOver() {
+			mouseOver(event) {
 				this.hover = true
-				document.body.classList.add('Pacnav--has-hover')
+
+				if (event.currentTarget.classList.contains('has-children')) {
+					document.body.classList.add('Pacnav--sub-is-active')
+				}
+
 			},
 
 		},
