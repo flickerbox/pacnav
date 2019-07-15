@@ -148,7 +148,7 @@
 				this.hover = false
 
 				if (event.currentTarget.classList.contains('has-children')) {
-					document.body.classList.remove('Pacnav--sub-is-active')
+					this.$emit('PacNavMobileHover', this.hover)
 				}
 
 			},
@@ -157,7 +157,7 @@
 				this.hover = true
 
 				if (event.currentTarget.classList.contains('has-children')) {
-					document.body.classList.add('Pacnav--sub-is-active')
+					this.$emit('PacNavMobileHover', this.hover)
 				}
 
 			},

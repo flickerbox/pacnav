@@ -44,7 +44,8 @@
 					v-for="(item, index) of mobileItems"
 					v-bind="item"
 					:class="itemClassList(item)"
-					:key="index"/>
+					:key="index"
+					@PacNavMobileHover="handleMobileHover"/>
 			</ul>
 
 		</div>
@@ -292,10 +293,16 @@
 					document.body.classList.remove('Pacnav--is-mobile')
 				}
 
-				if(this.state == 'mobile' && this.isActive && !document.body.classList.contains('Pacnav--is-active')) {
+				if(this.state == 'mobile' && this.isActive) {
 					document.body.classList.add('Pacnav--is-active')
-				} else if(document.body.classList.contains('Pacnav--is-active')) {
+				} else if(this.state != 'mobile' || !this.isActive) {
 					document.body.classList.remove('Pacnav--is-active')
+				}
+
+				if(this.isMobileHover && this.isActive) {
+					document.body.classList.add('Pacnav--sub-is-active')
+				} else if(!this.isMobileHover || !this.isActive) {
+					document.body.classList.remove('Pacnav--sub-is-active')
 				}
 
 			},
@@ -336,9 +343,7 @@
 				})
 
 				if (this.itemsMobile) {
-
 					combinedItems = [...combinedItems, ...this.itemsMobile]
-
 				}
 
 				return combinedItems
@@ -353,6 +358,13 @@
 
 				return false
 
+			},
+
+			handleMobileHover(event) {
+
+				this.isMobileHover = event
+				this.setBodyClass()
+
 			}
 
 		},
@@ -362,6 +374,7 @@
 			return {
 				isActive: false,
 				isMounted: false,
+				isMobileHover: false,
 				state: 'desktop',
 				numberVisible: this.items.length,
 				allItems: [],
