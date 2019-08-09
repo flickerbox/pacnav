@@ -40,10 +40,10 @@
 		<div v-if="isMounted && state == 'mobile'" class="PacnavMobile">
 
 			<ul>
-				<pacnav-item
-					class="active-nav"
-					:link="null"
-					:link-title="activeSubNavTitle"/>
+
+				<li class="active-nav-label">
+					<div v-html="activeSubNavTitle"/>
+				</li>
 
 				<pacnav-item
 					v-for="(item, index) of mobileItems"
@@ -51,6 +51,7 @@
 					:class="itemClassList(item)"
 					:key="index"
 					@PacNavMobileHover="handleMobileHover"/>
+
 			</ul>
 
 		</div>
