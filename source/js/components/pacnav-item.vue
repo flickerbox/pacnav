@@ -148,7 +148,7 @@
 				this.hover = false
 
 				if (event.currentTarget.classList.contains('has-children')) {
-					this.$emit('PacNavMobileHover', this.hover)
+					this.$emit('PacNavMobileHover', {'hasHover' : this.hover, 'linkTitle' : ''})
 				}
 
 			},
@@ -157,7 +157,7 @@
 				this.hover = true
 
 				if (event.currentTarget.classList.contains('has-children')) {
-					this.$emit('PacNavMobileHover', this.hover)
+					this.$emit('PacNavMobileHover', {'hasHover' : this.hover, 'linkTitle' : this.linkTitle})
 				}
 
 			},

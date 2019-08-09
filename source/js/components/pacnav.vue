@@ -41,6 +41,11 @@
 
 			<ul>
 				<pacnav-item
+					class="active-nav"
+					:link="null"
+					:link-title="activeSubNavTitle"/>
+
+				<pacnav-item
 					v-for="(item, index) of mobileItems"
 					v-bind="item"
 					:class="itemClassList(item)"
@@ -362,7 +367,8 @@
 
 			handleMobileHover(event) {
 
-				this.isMobileHover = event
+				this.isMobileHover = event.hasHover
+				this.activeSubNavTitle = event.linkTitle
 				this.setBodyClass()
 
 			}
@@ -385,7 +391,8 @@
 				unfixedItemsWidth: 0,
 				toggleWidth: 0,
 				windowWidth: 0,
-				width: 0
+				width: 0,
+                activeSubNavTitle: '',
 			}
 
 		},
