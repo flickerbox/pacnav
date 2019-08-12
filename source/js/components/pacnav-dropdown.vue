@@ -67,13 +67,18 @@ export default {
 
 		itemClassList( item ) {
 
-			let preservedClasses = ''
+			let preservedClasses = []
 
 			if (typeof item.attributes == 'object') {
-				preservedClasses = item.attributes.class;
+				preservedClasses.push(item.attributes.class);
 			}
 
-			return {'has-children': item.children && item.children.length, [preservedClasses]: true}
+			if (item.children && item.children.length) {
+				preservedClasses.push('has-children')
+				preservedClasses.push(`is-${ this.countDepth(item.children, 1) }-deep`)
+			}
+
+			return preservedClasses
 		},
 
 		classList() {
