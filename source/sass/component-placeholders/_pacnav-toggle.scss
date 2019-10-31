@@ -1,0 +1,68 @@
+%PacnavToggle {
+	$_pacnav-toggle-size: unquote(inspect($pacnav-toggle-size));
+	cursor: pointer;
+	display: flex;
+	min-height: $_pacnav-toggle-size;
+	position: relative;
+	width: $_pacnav-toggle-size;
+
+	svg {
+		display: block;
+		height: $_pacnav-toggle-size;
+		margin: auto;
+		width: $_pacnav-toggle-size;
+	}
+}
+
+%PacnavToggle-lines {
+	@include transition(fill slow, opacity normal, transform normal);
+	transform-origin: 10px 10px;
+}
+
+%PacnavToggle-lines,
+%PacnavToggle-line1,
+%PacnavToggle-line2,
+%PacnavToggle-line3,
+%PacnavToggle-line4 {
+	animation-duration: 0.8s;
+	animation-iteration-count: 1;
+}
+
+%PacnavToggle-line1,
+%PacnavToggle-line2,
+%PacnavToggle-line3,
+%PacnavToggle-line4 {
+	@include transition(opacity normal, transform normal);
+	transform-origin: 10px 10px;
+}
+
+%PacnavToggle.is-active %PacnavToggle-lines {
+	transform: rotate(90deg);
+}
+
+%PacnavToggle.is-active %PacnavToggle-line1 {
+	opacity: 0;
+	transform: translate(0, 5px);
+}
+
+%PacnavToggle.is-active %PacnavToggle-line2 {
+	transform: rotate(-45deg);
+}
+
+%PacnavToggle.is-active %PacnavToggle-line3 {
+	transform: rotate(45deg);
+}
+
+%PacnavToggle.is-active %PacnavToggle-line4 {
+	opacity: 0;
+	transform: translate(0, -5px);
+}
+
+.is-mobile.is-active %PacnavToggle {
+	$_pacnav-toggle-size: unquote(inspect($pacnav-toggle-size));
+	height: $_pacnav-toggle-size;
+	position: fixed;
+	right: $pacnav-mobile-padding;
+	top: $pacnav-mobile-padding;
+	z-index: 1001;
+}
