@@ -34,7 +34,7 @@
 
 %Pacnav-a {
 	@include color($pacnav-desktop-color);
-	@include responsive-property('font-size', $pacnav-desktop-font-sizse);
+	@include responsive-property('font-size', $pacnav-desktop-font-size);
 	@include responsive-property('line-height', $pacnav-desktop-line-height);
 	display: block;
 }
