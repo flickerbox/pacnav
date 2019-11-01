@@ -1,3 +1,15 @@
 .PacnavMobile {
 	@extend %PacnavMobile !optional;
+
+	ul {
+		@extend %PacnavDropdown-ul !optional;
+	}
+
+	li {
+		@extend %PacnavDropdown-li !optional;
+	}
+
+	li > a {
+		@extend %PacnavDropdown-a !optional;
+	}
 }

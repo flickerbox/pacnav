@@ -1,5 +1,17 @@
 .Pacnav {
 	@extend %Pacnav !optional;
+
+	> ul {
+		@extend %Pacnav-ul !optional;
+	}
+
+	> ul > li {
+		@extend %Pacnav-li !optional;
+	}
+
+	> ul > li > a {
+		@extend %Pacnav-a !optional;
+	}
 }
 
 .js pacnav,

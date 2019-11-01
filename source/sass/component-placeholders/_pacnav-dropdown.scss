@@ -1,16 +1,22 @@
 %PacnavDropdown {
 	$_pacnav-dropdown-max-width: unquote(inspect($pacnav-dropdown-max-width));
 	$_pacnav-dropdown-min-width: unquote(inspect($pacnav-dropdown-min-width));
+	$_pacnav-dropdown-offset: unquote(inspect($pacnav-dropdown-offset));
 	$_pacnav-dropdown-width: unquote(inspect($pacnav-dropdown-width));
 
 	background-color: $pacnav-dropdown-background-color;
 	display: none;
-	left: 50%;
 	min-width: 160px;
 	padding: $pacnav-dropdown-padding;
 	position: absolute;
 	top: 100%;
-	transform: translate3d(-50%, 0, 0);
+
+	@if $_pacnav-dropdown-offset == center {
+		left: 50%;
+		transform: translate3d(-50%, 0, 0);
+	} @else {
+		left: $_pacnav-dropdown-offset;
+	}
 
 	@if $_pacnav-dropdown-width != auto {
 		width: $_pacnav-dropdown-width;
@@ -19,57 +25,55 @@
 		min-width: $_pacnav-dropdown-min-width;
 	}
 
-	li {
-		color: $pacnav-dropdown-color;
-		margin-bottom: $pacnav-dropdown-item-margin;
-		position: relative;
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-	li > a {
-		align-items: center;
-		display: flex;
-		font-size: $pacnav-dropdown-font-size;
-		line-height: $pacnav-dropdown-line-height;
-		height: $pacnav-dropdown-item-height;
-		width: 100%;
-
-		&,
-		&:active,
-		&:focus,
-		&:hover {
-			color: $pacnav-dropdown-color;
-		}
-	}
-
-	&-icon {
-		display: flex;
-		flex-shrink: 0;
-		height: $pacnav-dropdown-icon-size;
-		margin-right: $pacnav-dropdown-item-margin;
-		width: $pacnav-dropdown-icon-size;
-
-		img {
-			display: block;
-			max-height: 100%;
-			max-width: 100%;
-		}
+	:hover > & {
+		display: block;
 	}
 }
 
-:hover > %PacnavDropdown {
-	display: block;
+%PacnavDropdown-icon {
+	display: flex;
+	flex-shrink: 0;
+	height: $pacnav-dropdown-icon-size;
+	margin-right: $pacnav-dropdown-item-margin;
+	width: $pacnav-dropdown-icon-size;
+
+	img {
+		display: block;
+		max-height: 100%;
+		max-width: 100%;
+	}
 }
 
-%PacnavDropdown > ul {
+%PacnavDropdown-ul,
+%PacnavDropdown-li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+%PacnavDropdown-ul {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
 
-%PacnavDropdown > ul > li {
+%PacnavDropdown-li {
+	@include color($pacnav-dropdown-color);
+	@include margin(0 0 $pacnav-dropdown-item-margin);
 	display: block;
+	position: relative;
+}
+
+%PacnavDropdown-a {
+	@include color($pacnav-dropdown-color);
+	align-items: center;
+	display: flex;
+	font-size: $pacnav-dropdown-font-size;
+	line-height: $pacnav-dropdown-line-height;
+	height: $pacnav-dropdown-item-height;
+	width: 100%;
+
+	@include hover {
+		@include color($pacnav-dropdown-color);
+	}
 }

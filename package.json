@@ -15,10 +15,8 @@
     "node": ">=8.0.0",
     "npm": ">=6.0.0"
   },
-  "devDependencies": {
-    "@flickerbox/build": "https://github.com/flickerbox/build/tarball/v1.0.0"
-  },
   "dependencies": {
+	"@flickerbox/fabric": "https://github.com/flickerbox/fabric/tarball/v20.0.0-alpha",
     "lodash": "^4.17.14",
     "url-parse": "^1.4.7"
   }

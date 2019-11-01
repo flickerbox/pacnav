@@ -4,39 +4,39 @@
 	height: $pacnav-desktop-item-height;
 	position: relative;
 	z-index: 20;
+}
 
-	ul,
-	li {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+%Pacnav-ul,
+%Pacnav-li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+%Pacnav-ul {
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+}
+
+%Pacnav-li {
+	align-items: center;
+	align-self: stretch;
+	display: flex;
+	height: $pacnav-desktop-item-height;
+	margin-left: $pacnav-desktop-item-margin;
+	position: relative;
+
+	&:first-child {
+		margin-left: 0;
 	}
+}
 
-	> ul {
-		align-items: center;
-		display: flex;
-		justify-content: flex-end;
-	}
-
-	> ul > li {
-		align-items: center;
-		align-self: stretch;
-		display: flex;
-		height: $pacnav-desktop-item-height;
-		margin-left: $pacnav-desktop-item-margin;
-		position: relative;
-
-		&:first-child {
-			margin-left: 0;
-		}
-	}
-
-	> ul > li > a {
-		color: $pacnav-desktop-color;
-		font-size: $pacnav-desktop-font-size;
-		line-height: $pacnav-desktop-line-height;
-		display: block;
-	}
+%Pacnav-a {
+	@include color($pacnav-desktop-color);
+	font-size: $pacnav-desktop-font-size;
+	line-height: $pacnav-desktop-line-height;
+	display: block;
 }
 
 %Pacnav--is-active {
