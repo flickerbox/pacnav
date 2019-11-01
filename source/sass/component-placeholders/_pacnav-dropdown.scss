@@ -4,10 +4,10 @@
 	$_pacnav-dropdown-offset: unquote(inspect($pacnav-dropdown-offset));
 	$_pacnav-dropdown-width: unquote(inspect($pacnav-dropdown-width));
 
-	background-color: $pacnav-dropdown-background-color;
+	@include background-color($pacnav-dropdown-background-color);
+	@include responsive-property('padding', $pacnav-dropdown-padding);
 	display: none;
 	min-width: 160px;
-	padding: $pacnav-dropdown-padding;
 	position: absolute;
 	top: 100%;
 
@@ -31,11 +31,11 @@
 }
 
 %PacnavDropdown-icon {
+	@include responsive-property('height', $pacnav-dropdown-icon-size);
+	@include responsive-property('margin-right', $pacnav-dropdown-item-margin);
+	@include responsive-property('width', $pacnav-dropdown-icon-size);
 	display: flex;
 	flex-shrink: 0;
-	height: $pacnav-dropdown-icon-size;
-	margin-right: $pacnav-dropdown-item-margin;
-	width: $pacnav-dropdown-icon-size;
 
 	img {
 		display: block;
@@ -66,11 +66,11 @@
 
 %PacnavDropdown-a {
 	@include color($pacnav-dropdown-color);
+	@include responsive-property('font-size', $pacnav-dropdown-font-size);
+	@include responsive-property('line-height', $pacnav-dropdown-line-height);
+	@include responsive-property('height', $pacnav-dropdown-item-height);
 	align-items: center;
 	display: flex;
-	font-size: $pacnav-dropdown-font-size;
-	line-height: $pacnav-dropdown-line-height;
-	height: $pacnav-dropdown-item-height;
 	width: 100%;
 
 	@include hover {

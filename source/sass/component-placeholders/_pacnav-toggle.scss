@@ -1,16 +1,15 @@
 %PacnavToggle {
-	$_pacnav-toggle-size: unquote(inspect($pacnav-toggle-size));
+	@include responsive-property('min-height', $pacnav-toggle-size);
+	@include responsive-property('width', $pacnav-toggle-size);
 	cursor: pointer;
 	display: flex;
-	min-height: $_pacnav-toggle-size;
 	position: relative;
-	width: $_pacnav-toggle-size;
 
 	svg {
+		@include responsive-property('height', $pacnav-toggle-size);
+		@include responsive-property('width', $pacnav-toggle-size);
 		display: block;
-		height: $_pacnav-toggle-size;
 		margin: auto;
-		width: $_pacnav-toggle-size;
 	}
 }
 
@@ -59,10 +58,9 @@
 }
 
 .is-mobile.is-active %PacnavToggle {
-	$_pacnav-toggle-size: unquote(inspect($pacnav-toggle-size));
-	height: $_pacnav-toggle-size;
+	@include responsive-property('height', $pacnav-toggle-size);
+	@include responsive-property('right', $pacnav-mobile-padding);
+	@include responsive-property('top', $pacnav-mobile-padding);
 	position: fixed;
-	right: $pacnav-mobile-padding;
-	top: $pacnav-mobile-padding;
 	z-index: 1001;
 }

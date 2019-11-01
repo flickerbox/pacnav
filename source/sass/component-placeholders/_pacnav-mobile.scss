@@ -1,10 +1,10 @@
 %PacnavMobile {
-	background-color: $pacnav-mobile-background-color;
+	@include background-color($pacnav-mobile-background-color);
+	@include responsive-property('padding', $pacnav-mobile-padding);
 	bottom: 0;
 	display: none;
 	left: 0;
 	overflow: auto;
-	padding: $pacnav-mobile-padding;
 	position: fixed;
 	right: 0;
 	top: 0;
