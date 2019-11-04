@@ -1,6 +1,6 @@
 <template>
 	<li
-		:class="classList()"
+		:class="classList"
 		@click="onToggle"
 		@mouseover="mouseOver"
 		@mouseleave="mouseOut"
@@ -10,16 +10,16 @@
 			<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
 
 				<g v-if="state != 'intermediate'" class="PacnavToggle-lines" fill="#000">
-					<rect class="PacnavToggle-line1" x="0" y="4" width="20" height="2"></rect>
-					<rect class="PacnavToggle-line2" x="0" y="9" width="20" height="2"></rect>
-					<rect class="PacnavToggle-line3" x="0" y="9" width="20" height="2"></rect>
-					<rect class="PacnavToggle-line4" x="0" y="14" width="20" height="2"></rect>
+					<rect class="PacnavToggle-line1" x="0" y="4" width="20" height="2"/>
+					<rect class="PacnavToggle-line2" x="0" y="9" width="20" height="2"/>
+					<rect class="PacnavToggle-line3" x="0" y="9" width="20" height="2"/>
+					<rect class="PacnavToggle-line4" x="0" y="14" width="20" height="2"/>
 				</g>
 
 				<g v-if="state == 'intermediate'" class="PacnavToggle-circles" fill="#000">
-					<circle class="PacnavToggle-circle1" cx="3" cy="10" r="2"></circle>
-					<circle class="PacnavToggle-circle2" cx="10" cy="10" r="2"></circle>
-					<circle class="PacnavToggle-circle3"cx="17" cy="10" r="2"></circle>
+					<circle class="PacnavToggle-circle1" cx="3" cy="10" r="2"/>
+					<circle class="PacnavToggle-circle2" cx="10" cy="10" r="2"/>
+					<circle class="PacnavToggle-circle3"cx="17" cy="10" r="2"/>
 				</g>
 
 			</g>
@@ -31,117 +31,118 @@
 </template>
 
 <style>
-	.PacnavToggle:not(.is-mounted) {
-		visibility: hidden;
-	}
-
-	.PacnavToggle.is-mounted.is-desktop {
-		display: none;
-	}
+.PacnavToggle.is-desktop {
+	display: none;
+}
 </style>
 
 <script>
-	export default {
+export default {
 
-		name: 'pacnav-toggle',
+	name: 'pacnav-toggle',
 
-		props: {
+	props: {
 
-			includeMargin: {
-				default: true,
-				type: Boolean
-			},
-			active: {
-				default: false,
-				type: Boolean
-			},
-			mounted: {
-				default: false,
-				type: Boolean
-			},
-			state: {
-				default: 'desktop',
-				type: String
-			},
-
+		active: {
+			default: false,
+			type: Boolean
+		},
+		state: {
+			default: 'desktop',
+			type: String
 		},
 
-		computed: {
+	},
 
-			margin() {
+	watch: {
 
-				let margin = 0
+		active(newActive) {
+			this.isActive = newActive
+		},
 
-				if(this.includeMargin) {
-					margin = parseInt(this.style.marginLeft, 10) + parseInt(this.style.marginRight, 10)
-				}
+	},
 
-				return margin
+	computed: {
 
-			},
+		classList() {
 
-			style() {
+			let classes = [
+				'PacnavToggle',
+				`is-${this.state}`
+			]
 
-				return window.getComputedStyle(this.$el) || this.$el.currentStyle
-
-			},
-
-			width() {
-
-				let rect = this.$el.getBoundingClientRect()
-				return this.margin + (rect.width || rect.right - rect.left)
-
+			if(this.isActive) {
+				classes.push('is-active')
 			}
 
-		},
-
-		methods: {
-
-			classList() {
-
-				let classes = [
-					'PacnavToggle',
-					`is-${this.state}`
-				]
-
-				if(this.isActive) {
-					classes.push('is-active')
-				}
-
-				if(this.mounted) {
-					classes.push('is-mounted')
-				}
-
-				if(this.hover) {
-					classes.push('has-hover')
-				}
-
-				return classes
-
-			},
-			onToggle() {
-
-				this.isActive = !(this.active || this.isActive)
-				this.$emit('toggle', this.isActive)
-
-			},
-			mouseOut() {
-				this.hover = false
-			},
-			mouseOver() {
-				this.hover = true
-			},
-
-		},
-
-		data() {
-
-			return {
-				isActive: false,
-				hover: false,
+			if(this.hasHover) {
+				classes.push('has-hover')
 			}
 
+			return classes
+
+		},
+
+		margin() {
+
+			const {
+				marginLeft,
+				marginRight,
+			} = this.style
+
+			return _.parseInt(marginLeft) + _.parseInt(marginRight)
+
+		},
+
+		style() {
+
+			return window.getComputedStyle(this.$el) || this.$el.currentStyle
+
+		},
+
+		width() {
+
+			const {
+				left,
+				right,
+				width,
+			} = this.$el.getBoundingClientRect()
+
+			return this.margin + (width || (right - left))
+
+		},
+
+	},
+
+	methods: {
+
+		onToggle() {
+
+			this.isActive = !this.isActive
+			this.$emit('toggle', this.isActive)
+
+		},
+
+		mouseOut() {
+			this.hasHover = false
+			this.$emit('hover', false)
+		},
+
+		mouseOver() {
+			this.hasHover = true
+			this.$emit('hover', true)
+		},
+
+	},
+
+	data() {
+
+		return {
+			isActive: false,
+			hasHover: false,
 		}
 
-	}
+	},
+
+}
 </script>
