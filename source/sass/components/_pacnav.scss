@@ -14,6 +14,13 @@
 	}
 }
 
+pacnav {
+	display: block;
+	height: 0;
+	overflow: hidden;
+	width: 0;
+}
+
 .js pacnav,
 .Pacnav:not(.is-mounted) {
 	overflow: hidden;
