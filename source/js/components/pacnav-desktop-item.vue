@@ -20,7 +20,7 @@
 
 		</component>
 
-		<pacnav-dropdown v-if="children" :items="children">
+		<pacnav-dropdown v-if="children && children.length" :items="children">
 			<slot/>
 		</pacnav-dropdown>
 

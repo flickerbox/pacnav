@@ -86,10 +86,11 @@ export default {
 
 		classList( item ) {
 
-			const classes = [
-				..._.get(this.attributes, 'class', []),
-				`is-${ this.depth }-deep`,
-			]
+			const classes = _.get(this.attributes, 'class', [])
+
+			if(this.depth) {
+				classes.push(`is-${ this.depth }-deep`)
+			}
 
 			if(this.children.length) {
 				classes.push('has-children')
@@ -128,7 +129,7 @@ export default {
 
 		depth() {
 
-			return countDepth(this.items, 1)
+			return countDepth(this.children)
 
 		},
 

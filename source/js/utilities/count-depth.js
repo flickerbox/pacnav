@@ -2,6 +2,10 @@ import _ from 'lodash'
 
 export default function countDepth( items, depth = 1 ) {
 
+	if(!items || !_.castArray(items).length) {
+		return 0
+	}
+
 	let childDepth = depth
 
 	_.each(items, ( item ) => {

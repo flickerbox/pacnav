@@ -47,7 +47,7 @@ export default {
 
 		depth() {
 
-			return countDepth(this.items, 1)
+			return countDepth(this.items)
 
 		},
 
