@@ -37,8 +37,6 @@
 </style>
 
 <script>
-import Pacnav from '../index'
-
 export default {
 
 	name: 'pacnav-toggle',
