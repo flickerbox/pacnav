@@ -7,7 +7,6 @@
 				v-for="(item, index) of visibleItems"
 				v-bind="item"
 				:key="index"
-				:children="[]"
 			>
 				<slot :name="getSlot(index)"/>
 			</pacnav-desktop-item>
