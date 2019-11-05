@@ -1,5 +1,10 @@
 <template>
-	<li v-bind="attributes" :class="classList" @mouseover="mouseOver" @mouseleave="mouseOut">
+	<li
+		v-bind="attributes"
+		:class="classList"
+		@mouseover="onMouseOver"
+		@mouseleave="onMouseOut"
+	>
 
 		<component :is="componentType" v-bind="componentAttributes">
 
@@ -23,10 +28,7 @@
 			/>
 		</ul>
 
-		<slot/>
-
 	</li>
-
 </template>
 
 <script>
@@ -156,13 +158,13 @@ export default {
 
 	methods: {
 
-		mouseOut() {
+		onMouseOut() {
 			this.hasHover = false
 			this.$emit('hover', false)
 
 		},
 
-		mouseOver() {
+		onMouseOver() {
 			this.hasHover = true
 			this.$emit('hover', true)
 

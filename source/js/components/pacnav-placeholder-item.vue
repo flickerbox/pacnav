@@ -1,5 +1,5 @@
 <template>
-	<li v-bind="attributes" :class="classList" @mouseover="mouseOver" @mouseleave="mouseOut">
+	<li v-bind="attributes" :class="classList">
 		<component :is="componentType" v-bind="componentAttributes">
 
 			<div v-if="icon" class="PacnavDropdown-icon">
@@ -14,7 +14,6 @@
 
 		</component>
 	</li>
-
 </template>
 
 <script>
@@ -74,7 +73,7 @@ export default {
 
 	mounted() {
 
-		this.handleResize()
+		this.updateItem()
 
 	},
 

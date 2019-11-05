@@ -3,16 +3,14 @@
 
 		<ul>
 
-			<pacnav-item
+			<pacnav-desktop-item
 				v-for="(item, index) of visibleItems"
 				v-bind="item"
 				:key="index"
 				:children="[]"
 			>
-				<pacnav-dropdown v-if="item.children" :items="item.children">
-					<slot :name="getSlot(index)"/>
-				</pacnav-dropdown>
-			</pacnav-item>
+				<slot :name="getSlot(index)"/>
+			</pacnav-desktop-item>
 
 			<pacnav-toggle
 				:active="isActive"
@@ -32,7 +30,7 @@
 
 		<pacnav-mobile
 			v-if="'mobile' === state"
-			:items="mobileItems || items"
+			:items="mobileItems.length && mobileItems || items"
 		/>
 
 	</nav>

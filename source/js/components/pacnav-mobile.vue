@@ -2,7 +2,7 @@
 	<div :class="classList">
 		<ul>
 
-			<pacnav-item
+			<pacnav-mobile-item
 				v-for="(item, index) of items"
 				v-bind="item"
 				:key="index"
