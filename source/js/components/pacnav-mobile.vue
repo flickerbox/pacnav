@@ -1,7 +1,7 @@
 <template>
 	<div :class="classList">
+		<ul>
 
-		<ul v-if="items.length">
 			<pacnav-item
 				v-for="(item, index) of items"
 				v-bind="item"
@@ -9,22 +9,20 @@
 			/>
 
 		</ul>
-
-		<slot/>
-
 	</div>
 </template>
 
 <script>
-import _ from 'lodash'
-import countDepth from '../utilities/count-depth'
-
 export default {
 
-	name: 'pacnav-dropdown',
+	name: 'pacnav-mobile',
 
 	props: {
 
+		active: {
+			default: false,
+			type: Boolean,
+		},
 		items: {
 			default: () => [],
 			type: Array,
@@ -37,21 +35,41 @@ export default {
 		classList() {
 
 			const classes = [
-				'PacnavDropdown',
-				`is-${ this.depth }-deep`,
+				'PacnavMobile',
 			]
+
+			if(this.isActive) {
+				classes.push('is-active')
+			}
 
 			return classes
 
 		},
 
-		depth() {
+	},
 
-			return countDepth(this.items, 1)
+	watch: {
 
+		active(newActive) {
+			this.isActive = newActive
 		},
 
 	},
+
+	methods: {
+
+	},
+
+	data() {
+
+		return {
+			isActive: false,
+		}
+
+	},
+
+	mounted() {
+	}
 
 }
 </script>

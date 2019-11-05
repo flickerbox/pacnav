@@ -4,48 +4,36 @@
 		<ul>
 
 			<pacnav-item
-				v-for="(item, index) of items"
-				v-if="isVisible(index)"
-				v-bind="item.attributes"
+				v-for="(item, index) of visibleItems"
+				v-bind="item"
 				:key="index"
-				:link="item.link"
-				:link-title="item.linkTitle"
-				:link-attributes="item.linkAttributes"
-				:attributes="item.attributes"
-				:include-margin="item.includeMargin"
-				:icon="item.icon"
-				:label="item.label"
-				:description="item.description"
-				:item-classes="item.itemClasses">
-
-				<pacnav-dropdown v-if="item.children && item.children.length" :items="item.children">
-
-					<div slot="content">
-						<slot :name="getSlot(index)"/>
-					</div>
-
+				:children="[]"
+			>
+				<pacnav-dropdown v-if="item.children" :items="item.children">
+					<slot :name="getSlot(index)"/>
 				</pacnav-dropdown>
-
-
 			</pacnav-item>
 
-			<pacnav-toggle :active="isActive" :mounted="isMounted" :state="state" :includeMargin="includeToggleMargin" @toggle="onToggle">
-				<pacnav-dropdown v-if="state == 'intermediate'" :items="hiddenItems()"/>
+			<pacnav-toggle
+				:active="isActive"
+				:state="state"
+				:store="store"
+				@toggle="onToggle"
+			>
+				<pacnav-dropdown v-if="'intermediate' === state" :items="hiddenItems"/>
 			</pacnav-toggle>
 
 		</ul>
 
-		<div v-if="'mobile' === state && isMounted" class="PacnavMobile">
-			<ul>
+		<pacnav-placeholder
+			:items="items"
+			:store="store"
+		/>
 
-				<pacnav-item
-					v-for="(item, index) of mobileItems"
-					v-bind="item"
-					:key="index"
-					@PacNavMobileHover="handleMobileHover"/>
-
-			</ul>
-		</div>
+		<pacnav-mobile
+			v-if="'mobile' === state"
+			:items="mobileItems || items"
+		/>
 
 	</nav>
 </template>
@@ -63,9 +51,17 @@
 </style>
 
 <script>
+import Vuex from 'vuex'
+import store from '../store'
+import hasWidth from '../mixins/has-width'
+
 export default {
 
 	name: 'pacnav',
+
+	mixins: [
+		hasWidth,
+	],
 
 	props: {
 
@@ -73,7 +69,7 @@ export default {
 			default: () => [],
 			type: Array,
 		},
-		itemsMobile: {
+		mobileItems: {
 			default: () => [],
 			type: Array,
 		},
@@ -84,10 +80,6 @@ export default {
 		minWidth: {
 			default: 840,
 			type: Number,
-		},
-		includeToggleMargin: {
-			default: true,
-			type: Boolean,
 		},
 		showFixedOnMobile: {
 			default: true,
@@ -117,6 +109,84 @@ export default {
 
 		},
 
+		isMounted() {
+			return this.items.length === this.store.getters.allItemsWidths.length
+		},
+
+		hiddenItems() {
+			return _.filter(this.items, ( item, index ) => !this.isVisible(index))
+		},
+
+		fixedItemsWidth() {
+			return this.store.getters.fixedItemsWidth
+		},
+
+		unfixedItems() {
+			return this.store.getters.unfixedItems
+		},
+
+		unfixedItemsWidths() {
+			return this.store.getters.unfixedItemsWidths
+		},
+
+		toggleWidth() {
+			return this.store.state.toggleWidth
+		},
+
+		state() {
+
+			const hasFewerVisibleThanMin = ( this.visible < this.minVisible )
+			const hasFewerVisibleThanMax = ( this.visible < this.unfixedItems.length )
+			const hasAtleastMin = ( this.unfixedItems.length >= this.minVisible )
+			const isWindowMobile = ( this.windowWidth < this.minWidth )
+
+			if( (hasAtleastMin && hasFewerVisibleThanMin) || isWindowMobile ) {
+				return 'mobile'
+			} else if( hasAtleastMin && hasFewerVisibleThanMax ) {
+				return 'intermediate'
+			} else {
+				return 'desktop'
+			}
+
+		},
+
+		visible() {
+
+			let visible = 0
+			let width = this.fixedItemsWidth
+
+			for(let itemWidth of this.unfixedItemsWidths) {
+				width += itemWidth
+
+				let isLastItem = ( visible === this.unfixedItemsWidths.length - 1 )
+				let hasExceededWidth = ( width > this.width )
+				let hasExceededWidthWithToggle = ( width + this.toggleWidth > this.width )
+
+				if((isLastItem && hasExceededWidth) || (!isLastItem && hasExceededWidthWithToggle)) {
+					break
+				}
+
+				visible++
+			}
+
+			console.log(width)
+
+			return visible
+
+		},
+
+		showFixed() {
+			return 'mobile' !== this.state || ('mobile' === this.state && this.showFixedOnMobile)
+		},
+
+		visibleItems() {
+			if(this.isMounted) {
+				return _.filter(this.items, ( item, index ) => this.isVisible(index))
+			}
+
+			return this.items
+		},
+
 	},
 
 	methods: {
@@ -125,153 +195,27 @@ export default {
 			return `item-${ index }`
 		},
 
-		getAllItems() {
-
-			if(this.$children.length) {
-
-				let $items = this.$children.filter($item => $item.$options._componentTag == 'pacnav-item')
-
-				return $items.reduce((items, child, index) => {
-					items.push({
-						index: index,
-						fixed: child.$el.classList.contains('is-fixed'),
-						width: child.width
-					})
-					return items
-				}, [])
-
-			} else {
-
-				return []
-
-			}
-
-		},
-
-		getFixedItems() {
-
-			return this.allItems.filter(item => item.fixed)
-
-		},
-
-		getUnfixedItems() {
-
-			return this.allItems.filter(item => !item.fixed)
-
-		},
-
-		getAllItemsWidth() {
-
-			return this.allItems.reduce((total, item) => total + item.width, 0)
-
-		},
-
-		getFixedItemsWidth() {
-
-			return this.fixedItems.reduce((total, item) => total + item.width, 0)
-
-		},
-
-		getUnfixedItemsWidth() {
-
-			return this.unfixedItems.reduce((total, item) => total + item.width, 0)
-
-		},
-
-		getNumberVisible() {
-
-			let visible = 0
-			let width = this.fixedItemsWidth
-
-			for(let item of this.unfixedItems) {
-				width += item.width
-
-				let isLastItem = (visible == this.unfixedItems.length - 1)
-				let itemOverWidth = (width + this.toggleWidth > this.width)
-				let lastItemOverWidth = (width > this.width)
-
-				if(isLastItem) {
-					if(lastItemOverWidth) {
-						break
-					}
-				} else if(itemOverWidth) {
-					break
-				}
-
-				visible++
-			}
-
-			return visible
-
-		},
-
-		getState() {
-
-			const hasFewerVisibleThanMin = ( this.numberVisible < this.minVisible )
-			const hasFewerVisibleThanTotal = ( this.numberVisible < this.unfixedItems.length )
-			const hasAtleastMin = ( this.unfixedItems.length >= this.minVisible )
-			const isWindowMobile = ( this.windowWidth < this.minWidth )
-
-			if( (hasAtleastMin && hasFewerVisibleThanMin) || isWindowMobile ) {
-				return 'mobile'
-			} else if( hasAtleastMin && hasFewerVisibleThanTotal ) {
-				return 'intermediate'
-			} else {
-				return 'desktop'
-			}
-
-		},
-
-		getToggleWidth() {
-
-			if(this.$children && this.$children.length) {
-
-				let $toggle = this.$children.filter($item => $item.$options._componentTag == 'pacnav-toggle').shift()
-				return $toggle.width
-
-			} else {
-
-				return 0
-
-			}
-
-		},
-
-		computeWidths() {
-
-			this.allItems = this.getAllItems()
-			this.mobileItems = this.getMobileItems()
-			this.fixedItems = this.getFixedItems()
-			this.unfixedItems = this.getUnfixedItems()
-			this.allItemsWidth = this.getAllItemsWidth()
-			this.fixedItemsWidth = this.getFixedItemsWidth()
-			this.unfixedItemsWidth = this.getUnfixedItemsWidth()
-			this.toggleWidth = this.getToggleWidth()
-
-		},
-
-		computeVisible() {
-
-			this.numberVisible = this.getNumberVisible()
-			this.state = this.getState()
-
-		},
-
 		handleResize() {
 
-			if (this.windowWidth != window.innerWidth) {
-				this.windowWidth = window.innerWidth
-				this.width = this.$el.clientWidth
-
-				this.computeVisible()
-				this.setBodyClass()
-			}
+			this.windowWidth = window.innerWidth
+			this.setBodyClass()
 
 		},
 
-		onToggle(isActive) {
+		isVisible( index ) {
 
-			this.isActive = isActive
+			const visibleItems = _.slice(this.unfixedItems, 0, this.visible)
+			const isMobile = ( 'mobile' === this.state )
+			const isFixed = ( -1 !== _.indexOf(this.fixedItems, index) )
+			const isVisible = ( -1 !== _.indexOf(visibleItems, index) )
+
+			return (isVisible && !isMobile) || (isFixed && this.showFixed)
+
+		},
+
+		onToggle(active) {
+
+			this.isActive = active
 			this.setBodyClass()
 
 		},
@@ -290,73 +234,7 @@ export default {
 				document.body.classList.remove('Pacnav--is-active')
 			}
 
-			if(this.isMobileHover && this.isActive) {
-				document.body.classList.add('Pacnav--sub-is-active')
-			} else if(!this.isMobileHover || !this.isActive) {
-				document.body.classList.remove('Pacnav--sub-is-active')
-			}
-
 		},
-
-		isVisible(index) {
-
-			let visible = true
-
-			if(this.allItems.length && this.unfixedItems.length) {
-
-				let item = this.allItems[index]
-				let lastItemVisible = this.unfixedItems[this.numberVisible - 1]
-
-				if(item && item.fixed) {
-					visible = this.showFixedOnMobile
-				} else if(item && lastItemVisible) {
-					visible = (this.state != 'mobile' && item.index <= lastItemVisible.index)
-				} else if(!this.numberVisible) {
-					visible = false
-				}
-
-			}
-
-			return visible
-
-		},
-
-		hiddenItems() {
-
-			return this.items.filter((item, index) => !this.isVisible(index))
-
-		},
-
-		getMobileItems() {
-
-			let combinedItems = this.items.filter((item, index) => {
-				return (!this.hasFixedClass(item) || !this.showFixedOnMobile)
-			})
-
-			if (this.itemsMobile) {
-				combinedItems = [...combinedItems, ...this.itemsMobile]
-			}
-
-			return combinedItems
-
-		},
-
-		hasFixedClass(item) {
-
-			if(item.attributes && item.attributes.class) {
-				return item.attributes.class.includes('is-fixed')
-			}
-
-			return false
-
-		},
-
-		handleMobileHover(event) {
-
-			this.isMobileHover = event.hasHover
-			this.setBodyClass()
-
-		}
 
 	},
 
@@ -364,25 +242,15 @@ export default {
 
 		return {
 			isActive: false,
-			isMounted: false,
-			isMobileHover: false,
-			state: 'desktop',
-			numberVisible: this.items.length,
-			allItems: [],
-			fixedItems: [],
-			unfixedItems: [],
-			allItemsWidth: 0,
-			fixedItemsWidth: 0,
-			unfixedItemsWidth: 0,
-			toggleWidth: 0,
+			store: new Vuex.Store(store),
 			windowWidth: 0,
-			width: 0,
 		}
 
 	},
 
 	created() {
 
+		document.addEventListener('readystatechange', this.handleResize)
 		window.addEventListener('resize', this.handleResize)
 		window.addEventListener('orientationchange', this.handleResize)
 
@@ -390,6 +258,7 @@ export default {
 
 	destroyed() {
 
+		document.removeEventListener('readystatechange', this.handleResize)
 		window.removeEventListener('resize', this.handleResize)
 		window.removeEventListener('orientationchange', this.handleResize)
 
@@ -397,9 +266,7 @@ export default {
 
 	mounted() {
 
-		this.computeWidths()
 		this.handleResize()
-		this.isMounted = true
 
 	}
 

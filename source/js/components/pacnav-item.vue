@@ -32,11 +32,16 @@
 <script>
 import _ from 'lodash'
 import URL from 'url-parse'
+import hasWidth from '../mixins/has-width'
 import countDepth from '../utilities/count-depth'
 
 export default {
 
 	name: 'pacnav-item',
+
+	mixins: [
+		hasWidth,
+	],
 
 	props: {
 
@@ -125,21 +130,14 @@ export default {
 
 		},
 
+		fixed() {
+			return this.classList && this.classList.indexOf('is-fixed') !== -1
+		},
+
 		linkClassList() {
 
 			const classes = _.get(this.linkAttributes, 'class', [])
 			return classes
-		},
-
-		margin() {
-
-			const {
-				marginLeft,
-				marginRight,
-			} = this.style
-
-			return _.parseInt(marginLeft) + _.parseInt(marginRight)
-
 		},
 
 		rel() {
@@ -151,24 +149,6 @@ export default {
 			}
 
 			return false
-
-		},
-
-		style() {
-
-			return window.getComputedStyle(this.$el) || this.$el.currentStyle
-
-		},
-
-		width() {
-
-			const {
-				left,
-				right,
-				width,
-			} = this.$el.getBoundingClientRect()
-
-			return this.margin + (width || (right - left))
 
 		},
 
