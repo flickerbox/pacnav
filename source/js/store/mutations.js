@@ -15,8 +15,6 @@ export default {
 			}
 		}
 
-		console.log(index, width)
-
 		state.itemWidths = _.assign(
 			{},
 			state.itemWidths,

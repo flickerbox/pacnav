@@ -167,8 +167,6 @@ export default {
 				visible++
 			}
 
-			console.log(width)
-
 			return visible
 
 		},
@@ -196,7 +194,8 @@ export default {
 		handleResize() {
 
 			this.windowWidth = window.innerWidth
-			this.setBodyClass()
+			this.updateActive()
+			this.updateBodyClass()
 
 		},
 
@@ -214,19 +213,27 @@ export default {
 		onToggle(active) {
 
 			this.isActive = active
-			this.setBodyClass()
+			this.updateBodyClass()
 
 		},
 
-		setBodyClass() {
+		updateActive() {
 
-			if(this.state === 'mobile' && !document.body.classList.contains('Pacnav--is-mobile')) {
+			if('mobile' !== this.state && this.isActive) {
+				this.isActive = false
+			}
+
+		},
+
+		updateBodyClass() {
+
+			if('mobile' === this.state && !document.body.classList.contains('Pacnav--is-mobile')) {
 				document.body.classList.add('Pacnav--is-mobile')
 			} else if(this.state !== 'mobile' && document.body.classList.contains('Pacnav--is-mobile')) {
 				document.body.classList.remove('Pacnav--is-mobile')
 			}
 
-			if(this.state === 'mobile' && this.isActive) {
+			if('mobile' === this.state && this.isActive) {
 				document.body.classList.add('Pacnav--is-active')
 			} else if(document.body.classList.contains('Pacnav--is-active')) {
 				document.body.classList.remove('Pacnav--is-active')
