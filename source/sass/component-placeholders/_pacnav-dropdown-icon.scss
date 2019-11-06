@@ -6,3 +6,31 @@
 	transform: translateY(-50%);
 	width: 16px;
 }
+
+%PacnavDropdownIcon-lines {
+	@include transition(stroke normal);
+}
+
+%PacnavDropdownIcon-line1,
+%PacnavDropdownIcon-line2 {
+	@include transition(transform fast);
+	transform-origin: center;
+}
+
+%PacnavDropdownIcon-line1 {
+	transform-origin: left center;
+}
+
+%PacnavDropdownIcon-line2 {
+	transform-origin: right center;
+}
+
+%PacnavDropdownIcon.is-active {
+	%PacnavDropdownIcon-line1 {
+		transform: translate(5.5px, 5.5px) rotate(-90deg);
+	}
+
+	%PacnavDropdownIcon-line2 {
+		transform: translate(-5.5px, 5.5px) rotate(90deg);
+	}
+}

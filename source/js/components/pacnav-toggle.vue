@@ -7,6 +7,7 @@
 	>
 
 		<pacnav-toggle-icon :state="state"/>
+		<slot/>
 
 	</li>
 </template>

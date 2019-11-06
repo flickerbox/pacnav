@@ -1,3 +1,15 @@
 .PacnavDropdownIcon {
 	@extend %PacnavDropdownIcon !optional;
+
+	[stroke='#000'] {
+		@extend %PacnavDropdownIcon-lines !optional;
+	}
+
+	line:nth-child(1) {
+		@extend %PacnavDropdownIcon-line1 !optional;
+	}
+
+	line:nth-child(2) {
+		@extend %PacnavDropdownIcon-line2 !optional;
+	}
 }
