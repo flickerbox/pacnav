@@ -46,7 +46,7 @@
 
 %PacnavDropdown-ul,
 %PacnavDropdown-li {
-	@include margin($pacnav-dropdown-item-margin 0);
+	@include margin(0 0 $pacnav-dropdown-item-margin);
 	list-style: none;
 	padding: 0;
 }
