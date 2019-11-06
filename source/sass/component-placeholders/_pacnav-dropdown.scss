@@ -55,6 +55,10 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+
+	ul {
+		@include margin($pacnav-dropdown-item-margin 0 $pacnav-dropdown-item-margin $pacnav-dropdown-item-margin);
+	}
 }
 
 %PacnavDropdown-li {
