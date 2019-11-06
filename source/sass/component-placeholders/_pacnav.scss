@@ -39,6 +39,11 @@
 	display: block;
 }
 
+.has-children > %Pacnav-a:not([class]) {
+	padding-right: _(2x);
+	position: relative;
+}
+
 %Pacnav--is-active {
 	height: 100vh;
 	overflow: hidden;
