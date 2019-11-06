@@ -8,15 +8,20 @@
 
 		<component :is="componentType" v-bind="componentAttributes">
 
-			<div v-if="icon" class="PacnavDropdown-icon">
+			<div v-if="icon" class="Pacnav-icon">
 				<img :src="icon"/>
 			</div>
 
 			<div>
-				<div v-if="label" class="PacnavDropdown-label">{{ label }}</div>
+				<div v-if="label" class="Pacnav-label">{{ label }}</div>
 				<span v-if="linkTitle">{{ linkTitle }}</span>
 				<p v-if="description">{{ description }}</p>
 			</div>
+
+			<pacnav-dropdown-icon
+				v-if="children && children.length"
+				:active="hasHover"
+			/>
 
 		</component>
 
