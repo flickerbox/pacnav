@@ -47,7 +47,7 @@ export default {
 		classList( item ) {
 
 			const classes = [
-				..._.get(this.attributes, 'class', []),
+				..._.castArray(_.get(this.attributes, 'class', [])),
 				`is-${ this.depth }-deep`,
 			]
 
