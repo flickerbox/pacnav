@@ -27,6 +27,7 @@
 				v-for="(item, index) of children"
 				v-bind="item"
 				:key="index"
+				:store="store"
 			/>
 		</ul>
 
@@ -66,13 +67,17 @@ export default {
 			return classes
 		},
 
+		mobileFormat() {
+			return this.store.getters.mobileFormat
+		},
+
 	},
 
 	methods: {
 
 		onClick( event ) {
 
-			if(!this.isActive) {
+			if('paged' === this.mobileFormat && !this.isActive) {
 				this.isActive = true
 				this.$emit('active', true)
 				event.preventDefault()
@@ -82,7 +87,7 @@ export default {
 
 		onClickBack() {
 
-			if(this.isActive) {
+			if('paged' === this.mobileFormat && this.isActive) {
 				this.isActive = false
 				this.$emit('active', false)
 			}

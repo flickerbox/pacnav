@@ -18,6 +18,17 @@ export default {
 
 	},
 
+	updateMobileFormat( { commit, dispatch, state }, format ) {
+
+		return new Promise(( resolve ) => {
+
+			commit('updateMobileFormat', _.toString(format))
+			resolve()
+
+		})
+
+	},
+
 	updateToggle( { commit, dispatch, state }, width ) {
 
 		return new Promise(( resolve ) => {

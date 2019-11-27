@@ -5,6 +5,7 @@ import mutations from './mutations'
 export default {
 
 	state: {
+		mobileFormat: 'default',
 		fixedItems: [],
 		itemWidths: {},
 		toggleWidth: 0,

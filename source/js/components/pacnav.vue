@@ -30,6 +30,7 @@
 		<pacnav-mobile
 			v-if="'mobile' === state"
 			:items="mobileItems.length && mobileItems || items"
+			:store="store"
 		/>
 
 	</nav>
@@ -66,6 +67,10 @@ export default {
 			default: () => [],
 			type: Array,
 		},
+		mobileFormat: {
+			default: 'default',
+			type: String,
+		},
 		mobileItems: {
 			default: () => [],
 			type: Array,
@@ -82,6 +87,14 @@ export default {
 			default: true,
 			type: Boolean,
 		},
+
+	},
+
+	watch: {
+
+		mobileFormat(newMobileFormat) {
+			this.store.dispatch('updateMobileFormat', newMobileFormat)
+		}
 
 	},
 
@@ -270,6 +283,7 @@ export default {
 
 	mounted() {
 
+		this.store.dispatch('updateMobileFormat', this.mobileFormat)
 		this.handleResize()
 
 	}

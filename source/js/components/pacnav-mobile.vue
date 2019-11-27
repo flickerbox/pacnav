@@ -6,6 +6,7 @@
 				v-for="(item, index) of items"
 				v-bind="item"
 				:key="index"
+				:store="store"
 			/>
 
 		</ul>
@@ -26,6 +27,10 @@ export default {
 		items: {
 			default: () => [],
 			type: Array,
+		},
+		store: {
+			default: null,
+			type: Object,
 		},
 
 	},

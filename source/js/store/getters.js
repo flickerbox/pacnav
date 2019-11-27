@@ -36,6 +36,10 @@ export default {
 		 .value()
 	),
 
+	mobileFormat: ( state, getters ) => (
+		state.mobileFormat || 'default'
+	),
+
 	toggleWidth: ( state, getters ) => (
 		state.toggleWidth || 0
 	),

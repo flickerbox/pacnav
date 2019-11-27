@@ -79,6 +79,10 @@ export default {
 			default: null,
 			type: String,
 		},
+		store: {
+			default: null,
+			type: Object,
+		},
 
 	},
 

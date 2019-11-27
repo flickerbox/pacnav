@@ -7,7 +7,7 @@ export default {
 
 		const fixedIndex = state.fixedItems.indexOf(index)
 
-		if(-1 !== fixedIndex) {
+		if( -1 !== fixedIndex ) {
 			if(!!fixed) {
 				state.fixedItems.push(index)
 			} else {
@@ -21,6 +21,14 @@ export default {
 			{ [index]: roundUp(width) }
 		)
 
+	},
+
+	updateMobileFormat( state, format ) {
+		if( -1 === _.indexOf(['default', 'paged'], format)) {
+			state.mobileFormat = 'default'
+		} else {
+			state.mobileFormat = format
+		}
 	},
 
 	updateToggle( state, width ) {
