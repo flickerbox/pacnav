@@ -1,6 +1,6 @@
 {
   "name": "@flickerbox/pacnav",
-  "version": "20.0.0",
+  "version": "20.0.6",
   "description": "",
   "main": "source/js/master.js",
   "module": "source/js/master.js",
@@ -16,7 +16,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
-	"@flickerbox/fabric": "https://github.com/flickerbox/fabric/tarball/v20.0.0-alpha",
+	"@flickerbox/fabric": "20.0.6",
     "lodash": "^4.17.14",
     "url-parse": "^1.4.7"
   }
