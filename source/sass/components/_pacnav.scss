@@ -9,7 +9,8 @@
 		@extend %Pacnav-li !optional;
 	}
 
-	> ul > li > a {
+	> ul > li > a,
+	> ul > li > div:first-child {
 		@extend %Pacnav-a !optional;
 	}
 }
