@@ -2,8 +2,8 @@
   "name": "@flickerbox/pacnav",
   "version": "21.0.0",
   "description": "",
-  "main": "source/js/master.js",
-  "module": "source/js/master.js",
+  "main": "source/js/main.js",
+  "module": "source/js/main.js",
   "scripts": {},
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "npm": ">=6.0.0"
   },
   "dependencies": {
-    "@flickerbox/fabric": "20.0.6",
+    "@flickerbox/fabric": "21.0.0",
     "lodash": "^4.17.14",
     "url-parse": "^1.4.7"
   }
