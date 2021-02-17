@@ -7,6 +7,7 @@
 				v-for="(item, index) of visibleItems"
 				v-bind="item"
 				:key="index"
+				@hover="onHover"
 			>
 				<slot :name="getSlot(index)"/>
 			</pacnav-desktop-item>
@@ -16,6 +17,7 @@
 				:state="state"
 				:store="store"
 				@toggle="onToggle"
+				@hover="onHover"
 			>
 				<pacnav-dropdown v-if="'intermediate' === state" :items="hiddenItems"/>
 			</pacnav-toggle>
@@ -222,6 +224,13 @@ export default {
 
 		},
 
+		onHover(hover) {
+
+			this.hasHover = hover
+			this.updateBodyClass()
+
+		},
+
 		onToggle(active) {
 
 			this.isActive = active
@@ -251,6 +260,12 @@ export default {
 				document.body.classList.remove('Pacnav--is-active')
 			}
 
+			if('mobile' !== this.state && this.hasHover) {
+				document.body.classList.add('Pacnav--has-hover')
+			} else if(document.body.classList.contains('Pacnav--has-hover')) {
+				document.body.classList.remove('Pacnav--has-hover')
+			}
+
 		},
 
 	},
@@ -258,6 +273,7 @@ export default {
 	data() {
 
 		return {
+			hasHover: false,
 			isActive: false,
 			store: new Vuex.Store(store),
 			windowWidth: 0,

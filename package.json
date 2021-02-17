@@ -1,6 +1,6 @@
 {
   "name": "@flickerbox/pacnav",
-  "version": "20.0.8",
+  "version": "21.0.0",
   "description": "",
   "main": "source/js/master.js",
   "module": "source/js/master.js",
