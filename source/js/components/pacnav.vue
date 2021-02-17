@@ -7,7 +7,7 @@
 				v-for="(item, index) of visibleItems"
 				v-bind="item"
 				:key="index"
-				@hover="onHover"
+				@hover="(hover) => item.children && onHover(hover)"
 			>
 				<slot :name="getSlot(index)"/>
 			</pacnav-desktop-item>
