@@ -39,10 +39,6 @@
 </template>
 
 <style>
-.Pacnav {
-	position: relative;
-}
-
 .Pacnav > ul {
 	display: flex;
 	flex-wrap: wrap;
