@@ -33,7 +33,11 @@
 			v-if="'mobile' === state"
 			:items="mobileItems.length && mobileItems || items"
 			:store="store"
-		/>
+		>
+			<div slot="mobile">
+				<slot name="mobile"/>
+			</div>
+		</pacnav-mobile>
 
 	</nav>
 </template>
