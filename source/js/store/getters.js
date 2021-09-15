@@ -44,6 +44,10 @@ export default {
 		state.toggleWidth || 0
 	),
 
+	itemWidth: ( state, getters ) => (
+		( index ) => state.itemWidths[index]
+	),
+
 	unfixedItems: ( state, getters ) => (
 		_.chain(state.itemWidths)
 		 .filter(( width, index ) => state.fixedItems.indexOf(index) === -1)

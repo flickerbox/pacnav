@@ -6,6 +6,8 @@
 			<pacnav-desktop-item
 				v-for="(item, index) of visibleItems"
 				v-bind="item"
+				:store="store"
+				:index="index"
 				:key="index"
 				@hover="(hover) => item.children && item.children.length && onHover(hover)"
 			>
