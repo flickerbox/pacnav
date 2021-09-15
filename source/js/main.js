@@ -1,11 +1,4 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
-
-/*
- * Store
- */
-
-import store from './store'
 
 /*
  * Components

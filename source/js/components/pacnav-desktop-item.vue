@@ -2,6 +2,7 @@
 	<li
 		v-bind="attributes"
 		:class="classList"
+		:style="styles"
 		@mouseover="onMouseOver"
 		@mouseleave="onMouseOut"
 	>
@@ -40,6 +41,22 @@ export default {
 	name: 'pacnav-desktop-item',
 
 	extends: PacnavItem,
+
+	props: {
+		index: {
+			default: null,
+			type: Number,
+		},
+	},
+
+	computed: {
+		styles() {
+			const width = this.store.getters.itemWidth(this.index)
+			return {
+				width: `${width}px`,
+			}
+		},
+	},
 
 }
 </script>
