@@ -51,7 +51,6 @@ export default {
 
 	computed: {
 		styles() {
-			console.log(this.store.getters.itemWidth, this.index)
 			const width = this.store.getters.itemWidth(this.index)
 			return {
 				width: `${width}px`,
