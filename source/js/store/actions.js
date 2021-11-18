@@ -2,13 +2,14 @@ import _ from 'lodash'
 
 export default {
 
-	updateItem( { commit, dispatch, state }, { index, fixed, width } ) {
+	updateItem( { commit, dispatch, state }, { index, fixed, width, margin } ) {
 
 		return new Promise(( resolve ) => {
 
 			commit('updateItem', {
 				index: _.parseInt(index),
 				fixed: !!fixed,
+				margin: parseFloat(margin),
 				width: parseFloat(width),
 			})
 

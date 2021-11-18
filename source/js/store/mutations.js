@@ -3,7 +3,7 @@ import roundUp from '../utilities/round-up'
 
 export default {
 
-	updateItem( state, { index, fixed, width } ) {
+	updateItem( state, { index, fixed, width, margin } ) {
 
 		const fixedIndex = state.fixedItems.indexOf(index)
 
@@ -18,7 +18,13 @@ export default {
 		state.itemWidths = _.assign(
 			{},
 			state.itemWidths,
-			{ [index]: roundUp(width) }
+			{ [index]: roundUp(width + margin) }
+		)
+
+		state.itemMargins = _.assign(
+			{},
+			state.itemMargins,
+			{ [index]: roundUp(margin) }
 		)
 
 	},
