@@ -36,12 +36,13 @@ export default {
 				width,
 			} = this.width__getRect()
 
-			return this.width__getMargin() + (width || (right - left))
+			return width || (right - left)
 
 		},
 
 		width__handleResize() {
 
+			this.margin = this.width__getMargin()
 			this.width = this.width__getWidth()
 
 		},
@@ -51,6 +52,7 @@ export default {
 	data() {
 
 		return {
+			margin: 0,
 			width: 0,
 		}
 
