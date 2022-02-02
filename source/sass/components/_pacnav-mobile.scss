@@ -2,14 +2,14 @@
 	@extend %PacnavMobile !optional;
 
 	ul {
-		@extend %PacnavDropdown-ul !optional;
+		@extend %PacnavMobile-ul !optional;
 	}
 
 	li {
-		@extend %PacnavDropdown-li !optional;
+		@extend %PacnavMobile-li !optional;
 	}
 
 	li > a {
-		@extend %PacnavDropdown-a !optional;
+		@extend %PacnavMobile-a !optional;
 	}
 }
