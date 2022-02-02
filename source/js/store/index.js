@@ -7,6 +7,7 @@ export default {
 	state: {
 		mobileFormat: 'default',
 		fixedItems: [],
+		itemMargins: {},
 		itemWidths: {},
 		toggleWidth: 0,
 	},

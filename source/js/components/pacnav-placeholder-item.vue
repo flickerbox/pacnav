@@ -48,6 +48,7 @@ export default {
 			this.store.dispatch('updateItem', {
 				index: this.index,
 				fixed: this.fixed,
+				margin: this.margin,
 				width: this.width,
 			})
 

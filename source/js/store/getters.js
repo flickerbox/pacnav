@@ -45,7 +45,7 @@ export default {
 	),
 
 	itemWidth: ( state, getters ) => (
-		( index ) => state.itemWidths[index]
+		( index, includeMargin = true ) => state.itemWidths[index] - (!includeMargin && state.itemMargins[index] || 0)
 	),
 
 	unfixedItems: ( state, getters ) => (
