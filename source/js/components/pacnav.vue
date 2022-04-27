@@ -11,7 +11,12 @@
 				:key="index"
 				@hover="(hover) => item.children && item.children.length && onHover(hover)"
 			>
-				<slot :name="getSlot(index)"/>
+				<slot :name="'item-'+item.id"/>
+				<template v-for="id of getItemSlots(item)">
+					<div :key="id" :slot="id">
+						<slot :name="'item-'+id"/>
+					</div>
+				</template>
 			</pacnav-desktop-item>
 
 			<pacnav-toggle
@@ -203,8 +208,19 @@ export default {
 
 	methods: {
 
-		getSlot( index ) {
-			return `item-${ index }`
+		getItemSlots( item ) {
+			const slots = []
+
+			if (item.children) {
+				item.children.forEach((child) => {
+					if (`item-${child.id}` in this.$slots) {
+						slots.push(child.id)
+					}
+					slots.push(...this.getItemSlots(child))
+				})
+			}
+
+			return slots
 		},
 
 		handleResize() {

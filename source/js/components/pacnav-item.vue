@@ -20,12 +20,21 @@
 
 		</component>
 
+		<slot/>
+
 		<ul v-if="children && children.length">
 			<pacnav-item
 				v-for="(item, index) of children"
 				v-bind="item"
 				:key="index"
-			/>
+			>
+				<slot :name="item.id"/>
+				<template v-for="name of childSlots">
+					<div :key="name" :slot="name">
+						<slot :name="name"/>
+					</div>
+				</template>
+			</pacnav-item>
 		</ul>
 
 	</li>
@@ -47,6 +56,10 @@ export default {
 
 	props: {
 
+		id: {
+			default: null,
+			type: String,
+		},
 		attributes: {
 			default: () => {},
 			type: Object,
@@ -161,9 +174,28 @@ export default {
 
 		},
 
+		childSlots() {
+			return this.getItemSlots(this)
+		},
+
 	},
 
 	methods: {
+
+		getItemSlots( item ) {
+			const slots = []
+
+			if (item.children) {
+				item.children.forEach((child) => {
+					if (child.id in this.$slots) {
+						slots.push(child.id)
+					}
+					slots.push(...this.getItemSlots(child))
+				})
+			}
+
+			return slots
+		},
 
 		onMouseOut() {
 			this.hasHover = false

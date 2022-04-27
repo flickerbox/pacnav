@@ -6,7 +6,14 @@
 				v-for="(item, index) of items"
 				v-bind="item"
 				:key="index"
-			/>
+			>
+				<slot :name="item.id"/>
+				<template v-for="id of getItemSlots(item)">
+					<div :key="id" :slot="id">
+						<slot :name="id"/>
+					</div>
+				</template>
+			</pacnav-item>
 
 		</ul>
 
@@ -49,6 +56,25 @@ export default {
 
 			return countDepth(this.items)
 
+		},
+
+	},
+
+	methods: {
+
+		getItemSlots( item ) {
+			const slots = []
+
+			if (item.children) {
+				item.children.forEach((child) => {
+					if (child.id in this.$slots) {
+						slots.push(child.id)
+					}
+					slots.push(...this.getItemSlots(child))
+				})
+			}
+
+			return slots
 		},
 
 	},

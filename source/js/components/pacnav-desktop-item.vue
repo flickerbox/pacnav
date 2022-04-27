@@ -28,6 +28,11 @@
 
 		<pacnav-dropdown v-if="children && children.length" :items="children">
 			<slot/>
+			<template v-for="name of childSlots">
+				<div :key="name" :slot="name">
+					<slot :name="name"/>
+				</div>
+			</template>
 		</pacnav-dropdown>
 
 	</li>
